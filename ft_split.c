@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 19:05:58 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/20 22:37:56 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/21 12:19:30 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static size_t	ft_words(char const *str, char c)
 	count = 0;
 	while (str[i])
 	{
-		if (str[i] != c && (i == 0 || str[i] == c))
+		if (str[i] != c && (i == 0 || str[i - 1] == c))
 			count++;
 		i++;
 	}
@@ -38,24 +38,29 @@ static size_t	ft_len(char const *str, char c)
 	return (i);
 }
 
-static char	*ft_copy(char const *str, char c)
+static char	**ft_build_split(char const *s, char **strs, char c, size_t words)
 {
-	char	*s;
 	size_t	i;
-	size_t	len;
+	size_t	j;
+	size_t	k;
 
-	len = ft_len(str, c);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
 	i = 0;
-	while (str[i] && str[i] != c)
+	j = 0;
+	while (s[i] && j < words)
 	{
-		s[i] = str[i];
-		i++;
+		k = 0;
+		while (s[i] && s[i] == c)
+			i++;
+		strs[j] = malloc(ft_len(&s[i], c) + 1);
+		if (!strs[j])
+			return (ft_free_split(strs, j));
+		while (s[i] && s[i] != c)
+			strs[j][k++] = s[i++];
+		strs[j][k] = '\0';
+		j++;
 	}
-	s[i] = '\0';
-	return (s);
+	strs[j] = 0;
+	return (strs);
 }
 
 static char	**ft_free_split(char ** strs, size_t j)
@@ -75,30 +80,13 @@ static char	**ft_free_split(char ** strs, size_t j)
 char	**ft_split(char const *s, char c)
 {
 	char	**strs;
-	size_t	i;
-	size_t	j;
+	size_t	words;
 
 	if (!s)
 		return (NULL);
-	strs = malloc((ft_words(s, c) + 1) * sizeof(char *));
+	words = ft_words(s, c);
+	strs = malloc((words + 1) * sizeof(char *));
 	if (!strs)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (s[i] && s[i] != c)
-		{
-			strs[j] = ft_copy(&s[i], c);
-			if (strs[j] == NULL)
-				return (ft_free_split(strs, j));
-			j++;
-		}
-		while (s[i] && s[i] != c)
-			i++;
-	}
-	strs[j] = NULL;
-	return (strs);
+	return (ft_build_split(s, strs, c, words));
 }

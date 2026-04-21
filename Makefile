@@ -6,7 +6,7 @@
 #    By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/17 15:00:33 by acoromin          #+#    #+#              #
-#    Updated: 2026/04/20 19:05:23 by acoromin         ###   ########.fr        #
+#    Updated: 2026/04/21 17:13:54 by acoromin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c \
 		ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
 		ft_atoi.c ft_strdup.c ft_calloc.c ft_substr.c ft_strjoin.c \
-		ft_strtrim.c
+		ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 18:59:34 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/17 19:11:06 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/20 22:42:57 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		i++;
 	if (i == n)
 		return (0);
-	return (ptr1[i] - ptr2[i])
+	return ((ptr1[i]) - (ptr2[i]))
 }

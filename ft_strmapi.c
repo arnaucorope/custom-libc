@@ -1,59 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 17:20:44 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/20 22:46:39 by acoromin         ###   ########.fr       */
+/*   Created: 2026/04/21 16:53:28 by acoromin          #+#    #+#             */
+/*   Updated: 2026/04/21 17:11:31 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isset(char c, char const *set)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	size_t	i;
-
-	i = 0;
-	while (set[i])
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	i;
-	size_t	start;
-	size_t	end;
 	size_t	len;
 	char	*str;
 
-	if (!s1 || !set)
+	if (!s || !f)
 		return (NULL);
-	len = ft_strlen(s1);
-	start = 0;
-	while (s1[start] && ft_isset(s1[start], set))
-		start++;
-	if (start == len)
-		return (ft_strdup(""));
-	end = len - 1;
-	while (end > start && ft_isset(s1[end], set))
-		end--;
-	str = malloc(end - start + 2);
+	len = ft_strlen(s);
+	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (start <= end)
+	while (s[i])
 	{
-		str[i] = s1[start];
+		str[i] = f(i, s[i]);
 		i++;
-		start++;
 	}
 	str[i] = '\0';
 	return (str);
