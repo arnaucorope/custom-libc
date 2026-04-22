@@ -6,9 +6,11 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 11:05:36 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/17 13:14:02 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:50:22 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

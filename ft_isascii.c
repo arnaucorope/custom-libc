@@ -6,9 +6,11 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:28:55 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/15 15:29:50 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:51:48 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isascii(int c)
 {

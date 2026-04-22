@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 12:38:59 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:09:17 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:27:49 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*ft_itoa(int n)
 	}
 	if (nbr == 0)
 		nb[0] = '0';
-		
 	while (nbr > 0)
 	{
 		nb[len--] = (nbr % 10) + '0';

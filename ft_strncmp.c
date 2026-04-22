@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 17:35:27 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/17 18:01:54 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:55:02 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (n == 0)
 		return (0);
 	i = 0;
-	while (i < n && s[i] && s1[i] == s2[i])
+	while (i < n && s1[i] && s1[i] == s2[i])
 		i++;
 	if (i == n)
 		return (0);

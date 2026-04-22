@@ -6,11 +6,13 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:26:16 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/17 13:28:29 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:45:57 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_isalnum(int c)
 {
-	return (c >= 65 && c <= 90 || c >= 97 && c <= 122 || c >= 48 && c <= 57);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }

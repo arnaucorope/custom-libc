@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 19:05:58 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/21 12:19:30 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:59:50 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ static size_t	ft_len(char const *str, char c)
 	return (i);
 }
 
+static char	**ft_free_split(char **strs, size_t j)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < j)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+	return (NULL);
+}
+
 static char	**ft_build_split(char const *s, char **strs, char c, size_t words)
 {
 	size_t	i;
@@ -61,20 +75,6 @@ static char	**ft_build_split(char const *s, char **strs, char c, size_t words)
 	}
 	strs[j] = 0;
 	return (strs);
-}
-
-static char	**ft_free_split(char ** strs, size_t j)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < j)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)

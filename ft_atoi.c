@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 11:46:51 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/20 22:40:56 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:55:51 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_isspace(char c)
 {
-	return (c >= '\t' && c <= '\r' || c == ' ');
+	return ((c >= '\t' && c <= '\r') || c == ' ');
 }
 
 int	ft_atoi(const char *nptr)

@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 16:12:52 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/17 16:07:07 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:54:08 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	dlen = 0;
 	while (dlen < size && dst[dlen])
 		dlen++;
-	if (dlen == n)
-		return (n + slen);
+	if (dlen == size)
+		return (size + slen);
 	i = 0;
 	while (dlen + i + 1 < size && src[i])
 	{

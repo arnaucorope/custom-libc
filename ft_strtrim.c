@@ -6,7 +6,7 @@
 /*   By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:20:44 by acoromin          #+#    #+#             */
-/*   Updated: 2026/04/20 22:46:39 by acoromin         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:25:50 by acoromin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	i = 0;
 	while (start <= end)
-	{
-		str[i] = s1[start];
-		i++;
-		start++;
-	}
+		str[i++] = s1[start++];
 	str[i] = '\0';
 	return (str);
 }
