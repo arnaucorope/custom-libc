@@ -6,7 +6,7 @@
 #    By: acoromin <acoromin@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/17 15:00:33 by acoromin          #+#    #+#              #
-#    Updated: 2026/04/24 15:28:34 by acoromin         ###   ########.fr        #
+#    Updated: 2026/04/24 16:25:37 by acoromin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -43,3 +43,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
