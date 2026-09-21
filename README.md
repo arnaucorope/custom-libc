@@ -1,173 +1,98 @@
-*This project has been created as part of the 42 curriculum by acoromin.*
+# Custom libc
 
----
+A static C library with implementations of common memory, string, character, and conversion functions, plus file-descriptor output helpers and a generic singly linked list.
 
-# Libft
+The library uses the `ft_` prefix and builds as `libft.a`. All declarations are available through `libft.h`.
 
-## 📌 Description
+## Build and use
 
-Libft is a custom C library that reimplements essential functions from the standard C library, along with additional utilities.
-
-The goal of this project is to build a deep understanding of:
-
-* Memory management (`malloc`, `free`)
-* Pointer manipulation
-* String processing
-* Data structures, especially linked lists
-
-This library serves as a foundational toolkit that will be reused and extended in future 42 projects.
-
----
-
-## ⚙️ Instructions
-
-### Compilation
-
-To compile the library:
+Requires `make`, a C compiler, and the `ar` archiver on a Unix-like system.
 
 ```bash
 make
 ```
 
-This will generate:
+The default build includes every function, including linked-list utilities.
 
-```bash
-libft.a
-```
-
----
-
-### Cleaning
-
-```bash
-make clean    # remove object files
-make fclean   # remove object files and library
-make re       # recompile everything
-```
-
----
-
-### Usage
-
-Include the header in your project:
+Save this example as `main.c`:
 
 ```c
 #include "libft.h"
+
+int main(void)
+{
+    char *message;
+
+    message = ft_strjoin("Hello, ", "world!");
+    if (!message)
+        return (1);
+    ft_putendl_fd(message, 1);
+    free(message);
+    return (0);
+}
 ```
 
-Compile your program with:
+Compile and run from the repository root:
 
 ```bash
-gcc main.c -L. -lft -o program
+cc -Wall -Wextra -Werror main.c -I. -L. -lft -o program
+./program
 ```
 
----
+`make clean` removes object files, `make fclean` also removes the library, and `make re` rebuilds it.
 
-## 📚 Library Overview
+## Function groups
 
-The library is organized into functional groups:
+| Group | Functions |
+| --- | --- |
+| Character checks | `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint` |
+| Character conversion | `ft_tolower`, `ft_toupper` |
+| Memory | `ft_memset`, `ft_bzero`, `ft_memcpy`, `ft_memmove`, `ft_memchr`, `ft_memcmp`, `ft_calloc` |
+| String length, copying, and search | `ft_strlen`, `ft_strlcpy`, `ft_strlcat`, `ft_strchr`, `ft_strrchr`, `ft_strncmp`, `ft_strnstr` |
+| String allocation and transformation | `ft_strdup`, `ft_substr`, `ft_strjoin`, `ft_strtrim`, `ft_split`, `ft_strmapi`, `ft_striteri` |
+| Numeric conversion | `ft_atoi`, `ft_itoa` |
+| File-descriptor output | `ft_putchar_fd`, `ft_putstr_fd`, `ft_putendl_fd`, `ft_putnbr_fd` |
+| List creation and insertion | `ft_lstnew`, `ft_lstadd_front`, `ft_lstadd_back` |
+| List inspection and transformation | `ft_lstsize`, `ft_lstlast`, `ft_lstiter`, `ft_lstmap` |
+| List cleanup | `ft_lstdelone`, `ft_lstclear` |
 
-### 🔹 Character Functions
+## Implementation
 
-Character checks and transformations:
+Each function is implemented in its own source file. The Makefile compiles those files into object files and archives them into `libft.a`.
 
-* `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint`
-* `ft_tolower`, `ft_toupper`
+### Memory and strings
 
----
+Memory operations work byte by byte. `ft_memmove` chooses the copy direction to preserve data when source and destination overlap. `ft_calloc` checks the requested allocation size for multiplication overflow, allocates memory, and clears it.
 
-### 🔹 Memory Functions
+String helpers distinguish between operations on caller-provided storage and operations that allocate new strings. For example, `ft_striteri` modifies a string through a callback, while `ft_strmapi` allocates a transformed copy.
 
-Low-level memory manipulation:
+`ft_split` counts tokens, allocates a null-terminated array, and allocates each token separately. If a token allocation fails, it frees the tokens already created and the array before returning `NULL`.
 
-* `ft_memset`, `ft_bzero`, `ft_memcpy`, `ft_memmove`
-* `ft_memchr`, `ft_memcmp`, `ft_calloc`
+### Generic linked lists
 
----
+Each `t_list` node contains a `void *content` pointer and a `next` pointer. List operations are independent of the payload type.
 
-### 🔹 String Functions
+`ft_lstnew` stores the supplied content pointer without copying the payload. Callbacks define how content is processed and released:
 
-String manipulation and creation:
+- `ft_lstiter` applies a callback to each existing payload.
+- `ft_lstmap` applies a callback and builds a new list from the returned payloads.
+- `ft_lstdelone` and `ft_lstclear` call the supplied destructor before freeing nodes.
 
-* `ft_strlen`, `ft_strdup`, `ft_strlcpy`, `ft_strlcat`
-* `ft_strchr`, `ft_strrchr`, `ft_strncmp`, `ft_strnstr`
-* `ft_substr`, `ft_strjoin`, `ft_strtrim`, `ft_split`
-* `ft_strmapi`, `ft_striteri`
+If node allocation fails during `ft_lstmap`, the current transformed payload and the partially constructed list are released through the destructor callback. `ft_lstclear` sets the caller's list pointer to `NULL` after cleanup.
 
----
+## Memory ownership and API scope
 
-### 🔹 Conversion Functions
+- Callers must free allocations returned by `ft_calloc`, `ft_strdup`, `ft_substr`, `ft_strjoin`, `ft_strtrim`, `ft_itoa`, and `ft_strmapi`.
+- For `ft_split`, free each token and then the returned array.
+- A list's destructor must match the ownership of its contents. Node allocation alone does not transfer or duplicate the underlying data.
+- String and memory functions require valid pointers and suitable buffer sizes unless the individual implementation explicitly handles otherwise.
+- `ft_atoi` converts the numeric prefix after optional whitespace and a sign; it does not provide overflow checking or an error-reporting interface.
+- The library implements the listed functions and utilities, not a complete replacement for the system C library.
 
-* `ft_atoi`
-* `ft_itoa`
+## Project background
 
----
+Developed by **acoromin** as **Libft**, part of the 42 curriculum.
 
-### 🔹 File Descriptor Output
+Reference material included *The C Programming Language* by Kernighan and Ritchie, system manual pages, and the original project documentation.
 
-* `ft_putchar_fd`
-* `ft_putstr_fd`
-* `ft_putendl_fd`
-* `ft_putnbr_fd`
-
----
-
-### 🔹 Linked List Functions
-
-Generic singly linked list implementation using `void *`:
-
-* Creation: `ft_lstnew`
-* Insertion: `ft_lstadd_front`, `ft_lstadd_back`
-* Iteration: `ft_lstiter`, `ft_lstmap`
-* Utilities: `ft_lstsize`, `ft_lstlast`
-* Memory management: `ft_lstdelone`, `ft_lstclear`
-
-These functions allow flexible handling of dynamic data structures.
-
----
-
-## 🧠 Technical Notes
-
-Functions like `ft_split` and `ft_lstmap` require:
-
-* Careful memory allocation and deallocation
-* Handling edge cases (NULL pointers, empty strings)
-* Understanding of dynamic data structures
-
-In particular, `ft_lstmap` demonstrates advanced concepts such as:
-
-* Transforming data while preserving structure
-* Error handling with partial allocations
-* Proper cleanup to avoid memory leaks
-
----
-
-## 📖 Resources
-
-* *The C Programming Language* – Kernighan & Ritchie
-* Manual pages (`man malloc`, `man free`, `man write`)
-* Official 42 subject documentation
-
----
-
-## 🤖 AI Usage
-
-AI tools were used to:
-
-* Clarify complex concepts (pointers, linked lists, memory management)
-* Assist in reasoning and debugging approaches
-
-All code was written, tested, and fully understood by the author.
-
----
-
-## 🧩 Project Importance
-
-This project is fundamental within the 42 curriculum, as it builds the base required for:
-
-* `ft_printf`
-* `get_next_line`
-* `push_swap`
-
-It reinforces low-level programming skills essential for mastering C.
-
+AI tools supported clarification of pointers, linked lists, memory management, and debugging approaches.
