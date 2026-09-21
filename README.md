@@ -91,7 +91,7 @@ If node allocation fails during `ft_lstmap`, the current transformed payload and
 
 ## Project background
 
-Developed by **acoromin** as **Libft**, part of the 42 curriculum.
+Developed by **Arnau Corominas Pérez (acoromin)** as **Libft**, part of the 42 curriculum.
 
 Reference material included *The C Programming Language* by Kernighan and Ritchie, system manual pages, and the original project documentation.
 
